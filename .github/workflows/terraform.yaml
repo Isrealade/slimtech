@@ -1,0 +1,32 @@
+name: Terraform Pipeline
+
+on:
+    push:
+        paths: 
+            - terraform/**
+    workflow_dispatch: 
+
+jobs:
+    intialize:
+        name: Initialize Terraform
+        runs-on: ubuntu-latest
+
+    format:
+        name: Terraform fmt check
+        runs-on: ubuntu-latest
+        needs: initialize
+
+    validate:
+        name: Validate Terraform Config
+        runs-on: ubuntu-latest
+        needs: format
+
+    plan:
+        name: Terraform Plan
+        runs-on: ubuntu-latest
+        needs: validate
+
+    apply:
+        name: Terraform Plan
+        runs-on: ubuntu-latest
+        needs: plan
