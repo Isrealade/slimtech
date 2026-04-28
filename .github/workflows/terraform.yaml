@@ -16,6 +16,9 @@ jobs:
     terraform:
         name: Initialize Terraform
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./terraform
         environment: dev
         steps: 
             - name: Checkout Repo
@@ -42,6 +45,9 @@ jobs:
     plan:
         name: Terraform Plan
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./terraform
         needs: terraform
         if: github.event_name == 'workflow_dispatch' && github.ref_name == 'main'
         steps: 
@@ -74,6 +80,9 @@ jobs:
     apply:
         name: Terraform Plan
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./terraform
         needs: plan
         if: inputs.apply == 'true'
         steps:
